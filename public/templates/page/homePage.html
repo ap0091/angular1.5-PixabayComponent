@@ -1,0 +1,19 @@
+<div>
+    <form class="search-box form-wrapper">
+        <input type="text" id="search" placeholder="What are you looking for?" ng-model="homeCtrl.searchTerm" ng-change="homeCtrl.changeSearch()" required>
+    </form>
+
+    <image-details-component ng-show="homeCtrl.singleImageData" obj="homeCtrl.singleImageData"> </image-details-component>
+    <div class="container" >
+        <div class="row" ng-if="homeCtrl.images">
+            <div ng-repeat="image in homeCtrl.images" class="col-lg-3 col-md-4 col-xs-6 thumb">
+                <a class="thumbnail image-height" ng-click="homeCtrl.details( image )">
+                    <img class="img-responsive max-image-height" src="{{ image.previewURL }}" alt="">
+                </a>
+            </div>
+        </div>
+        <div ng-if="!homeCtrl.images">
+            {{ homeCtrl.errorMessage }}
+        </div>
+    </div>
+</div>
