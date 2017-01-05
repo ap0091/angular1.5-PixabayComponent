@@ -1,5 +1,5 @@
 //this is the main controller that loads on index page.. it allows the user to search for a batch of images to be returned from Pixabay API if a search term is found
-let HomeController = app.controller( "HomeController", function( $scope, $rootScope, PixabayAPI ) {
+let HomeController = app.controller( "HomeController", function( $scope, $rootScope, $location, PixabayAPI ) {
     var vm = this;
     vm.images = null;
     vm.singleImageData = null;
@@ -37,4 +37,8 @@ let HomeController = app.controller( "HomeController", function( $scope, $rootSc
     vm.details = function( image ) {
         vm.singleImageData = image;
     };
+
+    $rootScope.$on("goBack", function(){
+        $location.path('/');
+    });
 });

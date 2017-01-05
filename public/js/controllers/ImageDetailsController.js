@@ -1,5 +1,5 @@
 //this is the controller for the individual image details page.. it holds the data for the image details component as well
-app.controller("ImageDetailsController", function($scope, $routeParams, PixabayAPI) {
+app.controller("ImageDetailsController", function($scope, $rootScope, $routeParams, PixabayAPI) {
     let vm = this;
     let id = $routeParams.id;
 
@@ -18,6 +18,6 @@ app.controller("ImageDetailsController", function($scope, $routeParams, PixabayA
     } );
 
     vm.goBack = function() {
-        window.history.back();
+        $rootScope.$broadcast("goBack");
     };
 });

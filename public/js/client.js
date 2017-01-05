@@ -36,7 +36,7 @@ let ImageDetailsComponent = app.component( "imageDetailsComponent", {
     templateUrl: '/templates/component/imageDetailsComponent.html',
 });
 //this is the main controller that loads on index page.. it allows the user to search for a batch of images to be returned from Pixabay API if a search term is found
-let HomeController = app.controller( "HomeController", function( $scope, $rootScope, PixabayAPI ) {
+let HomeController = app.controller( "HomeController", function( $scope, $rootScope, $location, PixabayAPI ) {
     var vm = this;
     vm.images = null;
     vm.singleImageData = null;
@@ -74,10 +74,14 @@ let HomeController = app.controller( "HomeController", function( $scope, $rootSc
     vm.details = function( image ) {
         vm.singleImageData = image;
     };
+
+    $rootScope.$on("goBack", function(){
+        $location.path('/');
+    });
 });
 
 //this is the controller for the individual image details page.. it holds the data for the image details component as well
-app.controller("ImageDetailsController", function($scope, $routeParams, PixabayAPI) {
+app.controller("ImageDetailsController", function($scope, $rootScope, $routeParams, PixabayAPI) {
     let vm = this;
     let id = $routeParams.id;
 
@@ -96,9 +100,18 @@ app.controller("ImageDetailsController", function($scope, $routeParams, PixabayA
     } );
 
     vm.goBack = function() {
-        window.history.back();
+        $rootScope.$broadcast("goBack");
     };
 });
+let DownloadCount = app.filter('downloadCount', function(){
+    return function(number){
+        if( 3000 < number ) {
+            return number + "-high".toUpperCase();
+        } else {
+            return number + "-good".toUpperCase();
+        }
+    }
+})
 let PixabayAPI = app.service('PixabayAPI', function( $http ) {
     this.getImages = getImages;
     this.getSingleImage = getSingleImage;
