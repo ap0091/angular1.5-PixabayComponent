@@ -17,7 +17,7 @@
                 <td>{{ $ctrl.obj.tags }}</td>
                 <td>{{ $ctrl.obj.type }}</td>
                 <td>{{ $ctrl.obj.likes }}</td>
-                <td>{{ $ctrl.obj.downloads }}</td>
+                <td>{{ $ctrl.obj.downloads | downloadCount }}</td>
                 <td ng-show="!$ctrl.obj.individual"><a href="/postDetails/{{ $ctrl.obj.id }}">Click Here</a></td>  <!--hide if we are on image details page -->
             </tr>
         </tbody>
